@@ -3,273 +3,300 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Animated Expense Tracker</title>
+<title>My Projects</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(-45deg, #667eea, #764ba2, #ff6a88, #ff99ac);
-  background-size: 400% 400%;
-  animation: gradientBG 12s ease infinite;
+html{
+  scroll-behavior:smooth;
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+body{
+  min-height:100vh;
+  background:linear-gradient(-45deg,#ff6a88,#ff99ac,#ff6a88,#ff99ac);
+  background-size:400% 400%;
+  animation:bg 10s ease infinite;
+  color:white;
 }
 
-.container {
-  width: 420px;
-  padding: 30px;
-  border-radius: 20px;
-  backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-  color: white;
-  animation: fadeIn 1s ease;
+@keyframes bg{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.section{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  padding:40px;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
+.card{
+  width:450px;
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(20px);
+  border-radius:25px;
+  padding:30px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
 }
 
-.balance-container {
-  text-align: center;
-  margin-bottom: 25px;
-  padding: 15px;
-  border-radius: 15px;
-  background: rgba(255,255,255,0.1);
+h1{
+  text-align:center;
+  margin-bottom:20px;
 }
 
-#balance {
-  font-size: 28px;
-  margin-top: 10px;
+.scroll{
+  margin:40px 0;
+  font-size:20px;
+  letter-spacing:2px;
 }
 
-.summary {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
+.line{
+  width:60%;
+  height:4px;
+  background:linear-gradient(90deg,#00ffcc,#ff4d6d);
+  border-radius:10px;
 }
 
-.summary div {
-  flex: 1;
-  margin: 5px;
-  padding: 10px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.1);
+/* ===== EXPENSE TRACKER ===== */
+.balance{
+  text-align:center;
+  margin-bottom:20px;
 }
 
-.plus { color: #00ffcc; }
-.minus { color: #ff4d6d; }
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
+.summary{
+  display:flex;
+  gap:10px;
 }
 
-input, select {
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
+.summary div{
+  flex:1;
+  background:rgba(255,255,255,0.15);
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
 }
 
-button {
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(45deg, #ff6a88, #ff99ac);
-  color: white;
+.plus{color:#00ffcc;}
+.minus{color:#ff4d6d;}
+
+form{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin:20px 0;
 }
 
-.list {
-  list-style: none;
-  max-height: 200px;
-  overflow-y: auto;
+input,select,button{
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  outline:none;
 }
 
-.list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255,255,255,0.1);
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
+button{
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
 }
 
-.list li.income {
-  border-left: 5px solid #00ffcc;
+ul{
+  list-style:none;
+  max-height:200px;
+  overflow:auto;
 }
 
-.list li.expense {
-  border-left: 5px solid #ff4d6d;
+li{
+  display:flex;
+  justify-content:space-between;
+  margin:8px 0;
+  background:rgba(255,255,255,0.15);
+  padding:8px;
+  border-radius:10px;
 }
 
-.delete-btn {
-  background: #ff4d6d;
-  border: none;
-  padding: 5px 8px;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
+.income{border-left:4px solid #00ffcc;}
+.expense{border-left:4px solid #ff4d6d;}
+
+/* ===== ATTENDANCE ===== */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:20px;
 }
 
-@media (max-width: 480px) {
-  .container { width: 95%; }
+th,td{
+  padding:10px;
+  text-align:center;
 }
+
+th{
+  background:rgba(255,255,255,0.2);
+}
+
+.present{color:#00ffcc;}
+.absent{color:#ff4d6d;}
+
+.action-btn{
+  padding:5px 8px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.present-btn{background:#00ffcc;}
+.absent-btn{background:#ff4d6d;color:white;}
+.delete-btn{background:#ff1e4d;color:white;}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>💰 Expense Tracker</h1>
+<!-- ================= EXPENSE TRACKER ================= -->
+<section class="section" id="expense">
+  <div class="card">
+    <h1>💰 Expense Tracker</h1>
 
-  <div class="balance-container">
-    <h2>Your Balance</h2>
-    <h3 id="balance">$0.00</h3>
+    <div class="balance">
+      <h3>Balance</h3>
+      <h2 id="balance">$0</h2>
+    </div>
 
     <div class="summary">
       <div>
         <h4>Income</h4>
-        <p id="income" class="plus">$0.00</p>
+        <p id="income" class="plus">$0</p>
       </div>
       <div>
         <h4>Expense</h4>
-        <p id="expense" class="minus">$0.00</p>
+        <p id="expense" class="minus">$0</p>
       </div>
     </div>
+
+    <form id="form">
+      <input id="text" placeholder="Description">
+      <input id="amount" type="number" placeholder="Amount">
+      <select id="type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+      <button>Add</button>
+    </form>
+
+    <ul id="list"></ul>
   </div>
 
-  <h3>Add Transaction</h3>
-  <form id="form">
-    <input type="text" id="text" placeholder="Description..." required>
-    <input type="number" id="amount" placeholder="Amount..." required>
-    <select id="type">
-      <option value="income">Income</option>
-      <option value="expense">Expense</option>
-    </select>
-    <button type="submit">Add Transaction</button>
-  </form>
+  <div class="scroll">↓ NEXT PROJECT ↓</div>
+  <div class="line"></div>
+</section>
 
-  <h3>History</h3>
-  <ul id="list" class="list"></ul>
-</div>
+<!-- ================= ATTENDANCE TRACKER ================= -->
+<section class="section" id="attendance">
+  <div class="card">
+    <h1>📅 Attendance Tracker</h1>
+
+    <input id="studentName" placeholder="Student Name">
+    <button onclick="addStudent()">Add Student</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="studentList"></tbody>
+    </table>
+  </div>
+</section>
 
 <script>
-const balance = document.getElementById('balance');
-const income = document.getElementById('income');
-const expense = document.getElementById('expense');
-const list = document.getElementById('list');
-const form = document.getElementById('form');
-const text = document.getElementById('text');
-const amount = document.getElementById('amount');
-const type = document.getElementById('type');
+/* ===== EXPENSE ===== */
+let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
-const localStorageTransactions =
-  JSON.parse(localStorage.getItem('transactions'));
+function updateExpense(){
+  const list=document.getElementById("list");
+  list.innerHTML="";
+  let inc=0,exp=0;
 
-let transactions =
-  localStorage.getItem('transactions') !== null
-  ? localStorageTransactions
-  : [];
+  transactions.forEach(t=>{
+    const li=document.createElement("li");
+    li.className=t.type;
+    li.innerHTML=`${t.text}<span>$${t.amount}</span>`;
+    list.appendChild(li);
+    t.type==="income"?inc+=t.amount:exp+=t.amount;
+  });
 
-function addTransaction(e) {
+  document.getElementById("income").innerText="$"+inc;
+  document.getElementById("expense").innerText="$"+exp;
+  document.getElementById("balance").innerText="$"+(inc-exp);
+  localStorage.setItem("transactions",JSON.stringify(transactions));
+}
+
+document.getElementById("form").onsubmit=e=>{
   e.preventDefault();
+  transactions.push({
+    text:text.value,
+    amount:+amount.value,
+    type:type.value
+  });
+  updateExpense();
+  text.value=amount.value="";
+};
+updateExpense();
 
-  if (text.value.trim() === '' || amount.value.trim() === '') return;
+/* ===== ATTENDANCE ===== */
+let students=JSON.parse(localStorage.getItem("students"))||[];
 
-  const transaction = {
-    id: Date.now(),
-    text: text.value,
-    amount: +amount.value,
-    type: type.value
-  };
-
-  transactions.push(transaction);
-  updateLocalStorage();
-  init();
-
-  text.value = '';
-  amount.value = '';
+function addStudent(){
+  const name=studentName.value.trim();
+  if(!name)return;
+  students.push({id:Date.now(),name,status:"Absent"});
+  studentName.value="";
+  renderStudents();
 }
 
-function addTransactionDOM(transaction) {
-  const sign = transaction.type === 'expense' ? '-' : '+';
-  const item = document.createElement('li');
-  item.classList.add(transaction.type);
-
-  item.innerHTML = `
-    ${transaction.text}
-    <span>${sign}$${transaction.amount}</span>
-    <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
-  `;
-
-  list.appendChild(item);
+function renderStudents(){
+  studentList.innerHTML="";
+  students.forEach((s,i)=>{
+    studentList.innerHTML+=`
+    <tr>
+      <td>${i+1}</td>
+      <td>${s.name}</td>
+      <td class="${s.status==='Present'?'present':'absent'}">${s.status}</td>
+      <td>
+        <button class="action-btn present-btn" onclick="setStatus(${s.id},'Present')">P</button>
+        <button class="action-btn absent-btn" onclick="setStatus(${s.id},'Absent')">A</button>
+        <button class="action-btn delete-btn" onclick="removeStudent(${s.id})">X</button>
+      </td>
+    </tr>`;
+  });
+  localStorage.setItem("students",JSON.stringify(students));
 }
 
-function updateValues() {
-  const amounts = transactions.map(t =>
-    t.type === 'expense' ? -t.amount : t.amount
-  );
-
-  const total = amounts.reduce((a, b) => a + b, 0).toFixed(2);
-  const incomeTotal = transactions
-    .filter(t => t.type === 'income')
-    .reduce((a, b) => a + b.amount, 0)
-    .toFixed(2);
-  const expenseTotal = transactions
-    .filter(t => t.type === 'expense')
-    .reduce((a, b) => a + b.amount, 0)
-    .toFixed(2);
-
-  balance.innerText = `$${total}`;
-  income.innerText = `$${incomeTotal}`;
-  expense.innerText = `$${expenseTotal}`;
+function setStatus(id,status){
+  students=students.map(s=>s.id===id?{...s,status}:s);
+  renderStudents();
 }
 
-function removeTransaction(id) {
-  transactions = transactions.filter(t => t.id !== id);
-  updateLocalStorage();
-  init();
+function removeStudent(id){
+  students=students.filter(s=>s.id!==id);
+  renderStudents();
 }
-
-function updateLocalStorage() {
-  localStorage.setItem('transactions', JSON.stringify(transactions));
-}
-
-function init() {
-  list.innerHTML = '';
-  transactions.forEach(addTransactionDOM);
-  updateValues();
-}
-
-init();
-form.addEventListener('submit', addTransaction);
+renderStudents();
 </script>
 
 </body>
