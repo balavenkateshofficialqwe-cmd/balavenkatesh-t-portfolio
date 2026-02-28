@@ -3,141 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Projects</title>
+<title>Student Attendance Tracker</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 
 <style>
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
-
-html{
-  scroll-behavior:smooth;
+  font-family: Arial, 'Poppins', sans-serif; /* ✅ added */
 }
 
 body{
   min-height:100vh;
-  background:linear-gradient(-45deg,#ff6a88,#ff99ac,#ff6a88,#ff99ac);
+  padding:40px; /* ✅ added */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(-45deg,#43cea2,#185a9d,#667eea,#764ba2);
   background-size:400% 400%;
-  animation:bg 10s ease infinite;
-  color:white;
+  animation:gradient 12s ease infinite;
 }
 
-@keyframes bg{
+@keyframes gradient{
   0%{background-position:0% 50%;}
   50%{background-position:100% 50%;}
   100%{background-position:0% 50%;}
 }
 
-.section{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  padding:40px;
-}
-
-.card{
-  width:450px;
-  background:rgba(255,255,255,0.18);
+.container{
+  width:900px;
+  background:rgba(255,255,255,0.15);
   backdrop-filter:blur(20px);
-  border-radius:25px;
   padding:30px;
+  border-radius:25px;
+  color:white;
   box-shadow:0 20px 40px rgba(0,0,0,0.3);
 }
 
 h1{
-  text-align:center;
   margin-bottom:20px;
 }
 
-.scroll{
-  margin:40px 0;
-  font-size:20px;
-  letter-spacing:2px;
-}
-
-.line{
-  width:60%;
-  height:4px;
-  background:linear-gradient(90deg,#00ffcc,#ff4d6d);
-  border-radius:10px;
-}
-
-/* ===== EXPENSE TRACKER ===== */
-.balance{
-  text-align:center;
-  margin-bottom:20px;
-}
-
-.summary{
+.add-section{
   display:flex;
   gap:10px;
+  margin-bottom:20px;
 }
 
-.summary div{
+.add-section input{
   flex:1;
-  background:rgba(255,255,255,0.15);
-  padding:10px;
-  border-radius:10px;
-  text-align:center;
-}
-
-.plus{color:#00ffcc;}
-.minus{color:#ff4d6d;}
-
-form{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  margin:20px 0;
-}
-
-input,select,button{
   padding:10px;
   border-radius:10px;
   border:none;
   outline:none;
 }
 
-button{
-  background:#ff4d6d;
-  color:white;
-  cursor:pointer;
-}
-
-ul{
-  list-style:none;
-  max-height:200px;
-  overflow:auto;
-}
-
-li{
-  display:flex;
-  justify-content:space-between;
-  margin:8px 0;
-  background:rgba(255,255,255,0.15);
-  padding:8px;
+.add-section button{
+  padding:10px 20px;
+  border:none;
   border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+  background:white;
+  transition:0.3s;
 }
 
-.income{border-left:4px solid #00ffcc;}
-.expense{border-left:4px solid #ff4d6d;}
+.add-section button:hover{
+  transform:scale(1.05);
+}
 
-/* ===== ATTENDANCE ===== */
 table{
   width:100%;
   border-collapse:collapse;
-  margin-top:20px;
+  background:rgba(255,255,255,0.1);
+  border-radius:15px;
+  overflow:hidden;
 }
 
 th,td{
-  padding:10px;
+  padding:12px;
   text-align:center;
 }
 
@@ -145,158 +91,154 @@ th{
   background:rgba(255,255,255,0.2);
 }
 
-.present{color:#00ffcc;}
-.absent{color:#ff4d6d;}
+tr:nth-child(even){
+  background:rgba(255,255,255,0.08);
+}
+
+.present{
+  color:#00ffcc;
+  font-weight:600;
+}
+
+.absent{
+  color:#ff4d6d;
+  font-weight:600;
+}
 
 .action-btn{
-  padding:5px 8px;
+  padding:5px 10px;
   border:none;
   border-radius:8px;
   cursor:pointer;
+  margin:2px;
+  font-size:12px;
+  transition:0.3s;
 }
 
 .present-btn{background:#00ffcc;}
-.absent-btn{background:#ff4d6d;color:white;}
+.absent-btn{background:#ff4d6d;}
 .delete-btn{background:#ff1e4d;color:white;}
+
+.action-btn:hover{
+  transform:scale(1.1);
+}
+
+.summary{
+  margin-top:20px;
+  display:flex;
+  justify-content:space-between;
+  background:rgba(255,255,255,0.1);
+  padding:15px;
+  border-radius:15px;
+}
+
+@media(max-width:950px){
+  .container{width:95%;}
+}
 </style>
 </head>
 
 <body>
 
-<!-- ================= EXPENSE TRACKER ================= -->
-<section class="section" id="expense">
-  <div class="card">
-    <h1>💰 Expense Tracker</h1>
+<div class="container">
+  <h1>📅 Attendance Tracker</h1>
 
-    <div class="balance">
-      <h3>Balance</h3>
-      <h2 id="balance">$0</h2>
-    </div>
-
-    <div class="summary">
-      <div>
-        <h4>Income</h4>
-        <p id="income" class="plus">$0</p>
-      </div>
-      <div>
-        <h4>Expense</h4>
-        <p id="expense" class="minus">$0</p>
-      </div>
-    </div>
-
-    <form id="form">
-      <input id="text" placeholder="Description">
-      <input id="amount" type="number" placeholder="Amount">
-      <select id="type">
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-      </select>
-      <button>Add</button>
-    </form>
-
-    <ul id="list"></ul>
-  </div>
-
-  <div class="scroll">↓ NEXT PROJECT ↓</div>
-  <div class="line"></div>
-</section>
-
-<!-- ================= ATTENDANCE TRACKER ================= -->
-<section class="section" id="attendance">
-  <div class="card">
-    <h1>📅 Attendance Tracker</h1>
-
-    <input id="studentName" placeholder="Student Name">
+  <div class="add-section">
+    <input type="text" id="studentName" placeholder="Enter student name">
     <button onclick="addStudent()">Add Student</button>
-
-    <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody id="studentList"></tbody>
-    </table>
   </div>
-</section>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="studentList"></tbody>
+  </table>
+
+  <div class="summary">
+    <div>Total: <span id="total">0</span></div>
+    <div>Present: <span id="presentCount">0</span></div>
+    <div>Attendance: <span id="percentage">0%</span></div>
+  </div>
+</div>
 
 <script>
-/* ===== EXPENSE ===== */
-let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+let students = JSON.parse(localStorage.getItem("students")) || [];
 
-function updateExpense(){
-  const list=document.getElementById("list");
-  list.innerHTML="";
-  let inc=0,exp=0;
-
-  transactions.forEach(t=>{
-    const li=document.createElement("li");
-    li.className=t.type;
-    li.innerHTML=`${t.text}<span>$${t.amount}</span>`;
-    list.appendChild(li);
-    t.type==="income"?inc+=t.amount:exp+=t.amount;
-  });
-
-  document.getElementById("income").innerText="$"+inc;
-  document.getElementById("expense").innerText="$"+exp;
-  document.getElementById("balance").innerText="$"+(inc-exp);
-  localStorage.setItem("transactions",JSON.stringify(transactions));
+function saveData(){
+  localStorage.setItem("students", JSON.stringify(students));
 }
-
-document.getElementById("form").onsubmit=e=>{
-  e.preventDefault();
-  transactions.push({
-    text:text.value,
-    amount:+amount.value,
-    type:type.value
-  });
-  updateExpense();
-  text.value=amount.value="";
-};
-updateExpense();
-
-/* ===== ATTENDANCE ===== */
-let students=JSON.parse(localStorage.getItem("students"))||[];
 
 function addStudent(){
-  const name=studentName.value.trim();
-  if(!name)return;
-  students.push({id:Date.now(),name,status:"Absent"});
-  studentName.value="";
-  renderStudents();
-}
+  const nameInput = document.getElementById("studentName");
+  const name = nameInput.value.trim();
+  if(name === "") return;
 
-function renderStudents(){
-  studentList.innerHTML="";
-  students.forEach((s,i)=>{
-    studentList.innerHTML+=`
-    <tr>
-      <td>${i+1}</td>
-      <td>${s.name}</td>
-      <td class="${s.status==='Present'?'present':'absent'}">${s.status}</td>
-      <td>
-        <button class="action-btn present-btn" onclick="setStatus(${s.id},'Present')">P</button>
-        <button class="action-btn absent-btn" onclick="setStatus(${s.id},'Absent')">A</button>
-        <button class="action-btn delete-btn" onclick="removeStudent(${s.id})">X</button>
-      </td>
-    </tr>`;
+  students.push({
+    id: Date.now(),
+    name: name,
+    status: "Absent"
   });
-  localStorage.setItem("students",JSON.stringify(students));
+
+  nameInput.value = "";
+  saveData();
+  render();
 }
 
-function setStatus(id,status){
-  students=students.map(s=>s.id===id?{...s,status}:s);
-  renderStudents();
+function setStatus(id, status){
+  students = students.map(student =>
+    student.id === id ? {...student, status} : student
+  );
+  saveData();
+  render();
 }
 
-function removeStudent(id){
-  students=students.filter(s=>s.id!==id);
-  renderStudents();
+function deleteStudent(id){
+  students = students.filter(student => student.id !== id);
+  saveData();
+  render();
 }
-renderStudents();
+
+function render(){
+  const list = document.getElementById("studentList");
+  list.innerHTML = "";
+
+  students.forEach((student,index)=>{
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${index+1}</td>
+      <td>${student.name}</td>
+      <td class="${student.status === 'Present' ? 'present' : 'absent'}">
+        ${student.status}
+      </td>
+      <td>
+        <button class="action-btn present-btn" onclick="setStatus(${student.id}, 'Present')">Present</button>
+        <button class="action-btn absent-btn" onclick="setStatus(${student.id}, 'Absent')">Absent</button>
+        <button class="action-btn delete-btn" onclick="deleteStudent(${student.id})">Delete</button>
+      </td>
+    `;
+    list.appendChild(row);
+  });
+
+  updateSummary();
+}
+
+function updateSummary(){
+  const total = students.length;
+  const present = students.filter(s => s.status === "Present").length;
+  const percentage = total === 0 ? 0 : ((present/total)*100).toFixed(0);
+
+  document.getElementById("total").innerText = total;
+  document.getElementById("presentCount").innerText = present;
+  document.getElementById("percentage").innerText = percentage + "%";
+}
+
+render();
 </script>
 
 </body>
