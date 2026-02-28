@@ -2,12 +2,6 @@
 
 This is my personal portfolio website built using **HTML, CSS, and JavaScript**.  
 It showcases my frontend development skills and projects.
-
----
-
-## 🌐 Live Website
-👉 https://balavenkateshofficialqwe-cmd.github.io/balavenkatesh-t-portfolio/
-
 ---
 
 ## 📁 Projects
