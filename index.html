@@ -3,243 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Attendance Tracker</title>
+<title>Projects Dashboard</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: Arial, 'Poppins', sans-serif; /* ✅ added */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
-body{
-  min-height:100vh;
-  padding:40px; /* ✅ added */
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(-45deg,#43cea2,#185a9d,#667eea,#764ba2);
-  background-size:400% 400%;
-  animation:gradient 12s ease infinite;
+body {
+  min-height: 100vh;
+  padding: 60px 20px;
+  background: linear-gradient(-45deg, #667eea, #764ba2, #ff6a88, #ff99ac);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
 }
 
-@keyframes gradient{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.container{
-  width:900px;
-  background:rgba(255,255,255,0.15);
-  backdrop-filter:blur(20px);
-  padding:30px;
-  border-radius:25px;
-  color:white;
-  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+/* ================= EXPENSE TRACKER ================= */
+
+.container {
+  width: 420px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  color: white;
 }
 
-h1{
-  margin-bottom:20px;
+/* ================= SEPARATOR ================= */
+
+.separator {
+  margin: 80px auto;
+  max-width: 800px;
+  text-align: center;
+  color: white;
 }
 
-.add-section{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
+.separator hr {
+  border: none;
+  height: 4px;
+  background: linear-gradient(to right, #00ffcc, #ff4d6d);
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
-.add-section input{
-  flex:1;
-  padding:10px;
-  border-radius:10px;
-  border:none;
-  outline:none;
+.separator h2 {
+  font-size: 26px;
+  letter-spacing: 2px;
 }
 
-.add-section button{
-  padding:10px 20px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:600;
-  background:white;
-  transition:0.3s;
-}
+/* ================= SECOND PROJECT ================= */
 
-.add-section button:hover{
-  transform:scale(1.05);
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  background:rgba(255,255,255,0.1);
-  border-radius:15px;
-  overflow:hidden;
-}
-
-th,td{
-  padding:12px;
-  text-align:center;
-}
-
-th{
-  background:rgba(255,255,255,0.2);
-}
-
-tr:nth-child(even){
-  background:rgba(255,255,255,0.08);
-}
-
-.present{
-  color:#00ffcc;
-  font-weight:600;
-}
-
-.absent{
-  color:#ff4d6d;
-  font-weight:600;
-}
-
-.action-btn{
-  padding:5px 10px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  margin:2px;
-  font-size:12px;
-  transition:0.3s;
-}
-
-.present-btn{background:#00ffcc;}
-.absent-btn{background:#ff4d6d;}
-.delete-btn{background:#ff1e4d;color:white;}
-
-.action-btn:hover{
-  transform:scale(1.1);
-}
-
-.summary{
-  margin-top:20px;
-  display:flex;
-  justify-content:space-between;
-  background:rgba(255,255,255,0.1);
-  padding:15px;
-  border-radius:15px;
-}
-
-@media(max-width:950px){
-  .container{width:95%;}
+.second-project {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(20px);
+  color: white;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 </style>
 </head>
 
 <body>
 
+<!-- ========== PROJECT 1: EXPENSE TRACKER ========== -->
 <div class="container">
-  <h1>📅 Attendance Tracker</h1>
-
-  <div class="add-section">
-    <input type="text" id="studentName" placeholder="Enter student name">
-    <button onclick="addStudent()">Add Student</button>
-  </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody id="studentList"></tbody>
-  </table>
-
-  <div class="summary">
-    <div>Total: <span id="total">0</span></div>
-    <div>Present: <span id="presentCount">0</span></div>
-    <div>Attendance: <span id="percentage">0%</span></div>
-  </div>
+  <h1 style="text-align:center;">💰 Expense Tracker</h1>
+  <p style="text-align:center; margin-top:10px;">(Your existing expense tracker code stays here)</p>
 </div>
 
-<script>
-let students = JSON.parse(localStorage.getItem("students")) || [];
+<!-- ========== VERY VISIBLE SEPARATOR ========== -->
+<div class="separator">
+  <hr>
+  <h2>⬇ NEXT PROJECT ⬇</h2>
+</div>
 
-function saveData(){
-  localStorage.setItem("students", JSON.stringify(students));
-}
-
-function addStudent(){
-  const nameInput = document.getElementById("studentName");
-  const name = nameInput.value.trim();
-  if(name === "") return;
-
-  students.push({
-    id: Date.now(),
-    name: name,
-    status: "Absent"
-  });
-
-  nameInput.value = "";
-  saveData();
-  render();
-}
-
-function setStatus(id, status){
-  students = students.map(student =>
-    student.id === id ? {...student, status} : student
-  );
-  saveData();
-  render();
-}
-
-function deleteStudent(id){
-  students = students.filter(student => student.id !== id);
-  saveData();
-  render();
-}
-
-function render(){
-  const list = document.getElementById("studentList");
-  list.innerHTML = "";
-
-  students.forEach((student,index)=>{
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${index+1}</td>
-      <td>${student.name}</td>
-      <td class="${student.status === 'Present' ? 'present' : 'absent'}">
-        ${student.status}
-      </td>
-      <td>
-        <button class="action-btn present-btn" onclick="setStatus(${student.id}, 'Present')">Present</button>
-        <button class="action-btn absent-btn" onclick="setStatus(${student.id}, 'Absent')">Absent</button>
-        <button class="action-btn delete-btn" onclick="deleteStudent(${student.id})">Delete</button>
-      </td>
-    `;
-    list.appendChild(row);
-  });
-
-  updateSummary();
-}
-
-function updateSummary(){
-  const total = students.length;
-  const present = students.filter(s => s.status === "Present").length;
-  const percentage = total === 0 ? 0 : ((present/total)*100).toFixed(0);
-
-  document.getElementById("total").innerText = total;
-  document.getElementById("presentCount").innerText = present;
-  document.getElementById("percentage").innerText = percentage + "%";
-}
-
-render();
-</script>
+<!-- ========== PROJECT 2: PASTE SECOND CODE HERE ========== -->
+<div class="second-project">
+  <h1>📅 Attendance Tracker</h1>
+  <p style="margin-top:10px;">
+    👉 Paste ONLY the <strong>HTML inside &lt;body&gt;</strong> of your Attendance Tracker here.<br>
+    👉 Paste its <strong>&lt;script&gt;</strong> below this section.
+  </p>
+</div>
 
 </body>
 </html>
