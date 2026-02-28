@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects Dashboard</title>
+<title>Animated Expense Tracker</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -17,7 +17,9 @@
 
 body {
   min-height: 100vh;
-  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(-45deg, #667eea, #764ba2, #ff6a88, #ff99ac);
   background-size: 400% 400%;
   animation: gradientBG 12s ease infinite;
@@ -29,78 +31,246 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* ================= EXPENSE TRACKER ================= */
-
 .container {
   width: 420px;
-  margin: 0 auto;
   padding: 30px;
   border-radius: 20px;
   backdrop-filter: blur(20px);
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
   color: white;
+  animation: fadeIn 1s ease;
 }
 
-/* ================= SEPARATOR ================= */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-.separator {
-  margin: 80px auto;
-  max-width: 800px;
+h1 {
   text-align: center;
-  color: white;
-}
-
-.separator hr {
-  border: none;
-  height: 4px;
-  background: linear-gradient(to right, #00ffcc, #ff4d6d);
-  border-radius: 10px;
   margin-bottom: 20px;
 }
 
-.separator h2 {
-  font-size: 26px;
-  letter-spacing: 2px;
+.balance-container {
+  text-align: center;
+  margin-bottom: 25px;
+  padding: 15px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.1);
 }
 
-/* ================= SECOND PROJECT ================= */
+#balance {
+  font-size: 28px;
+  margin-top: 10px;
+}
 
-.second-project {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(20px);
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.summary div {
+  flex: 1;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.1);
+}
+
+.plus { color: #00ffcc; }
+.minus { color: #ff4d6d; }
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+input, select {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+button {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(45deg, #ff6a88, #ff99ac);
   color: white;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.list {
+  list-style: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.list li.income {
+  border-left: 5px solid #00ffcc;
+}
+
+.list li.expense {
+  border-left: 5px solid #ff4d6d;
+}
+
+.delete-btn {
+  background: #ff4d6d;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .container { width: 95%; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ========== PROJECT 1: EXPENSE TRACKER ========== -->
 <div class="container">
-  <h1 style="text-align:center;">💰 Expense Tracker</h1>
-  <p style="text-align:center; margin-top:10px;">(Your existing expense tracker code stays here)</p>
+  <h1>💰 Expense Tracker</h1>
+
+  <div class="balance-container">
+    <h2>Your Balance</h2>
+    <h3 id="balance">$0.00</h3>
+
+    <div class="summary">
+      <div>
+        <h4>Income</h4>
+        <p id="income" class="plus">$0.00</p>
+      </div>
+      <div>
+        <h4>Expense</h4>
+        <p id="expense" class="minus">$0.00</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Add Transaction</h3>
+  <form id="form">
+    <input type="text" id="text" placeholder="Description..." required>
+    <input type="number" id="amount" placeholder="Amount..." required>
+    <select id="type">
+      <option value="income">Income</option>
+      <option value="expense">Expense</option>
+    </select>
+    <button type="submit">Add Transaction</button>
+  </form>
+
+  <h3>History</h3>
+  <ul id="list" class="list"></ul>
 </div>
 
-<!-- ========== VERY VISIBLE SEPARATOR ========== -->
-<div class="separator">
-  <hr>
-  <h2>⬇ NEXT PROJECT ⬇</h2>
-</div>
+<script>
+const balance = document.getElementById('balance');
+const income = document.getElementById('income');
+const expense = document.getElementById('expense');
+const list = document.getElementById('list');
+const form = document.getElementById('form');
+const text = document.getElementById('text');
+const amount = document.getElementById('amount');
+const type = document.getElementById('type');
 
-<!-- ========== PROJECT 2: PASTE SECOND CODE HERE ========== -->
-<div class="second-project">
-  <h1>📅 Attendance Tracker</h1>
-  <p style="margin-top:10px;">
-    👉 Paste ONLY the <strong>HTML inside &lt;body&gt;</strong> of your Attendance Tracker here.<br>
-    👉 Paste its <strong>&lt;script&gt;</strong> below this section.
-  </p>
-</div>
+const localStorageTransactions =
+  JSON.parse(localStorage.getItem('transactions'));
+
+let transactions =
+  localStorage.getItem('transactions') !== null
+  ? localStorageTransactions
+  : [];
+
+function addTransaction(e) {
+  e.preventDefault();
+
+  if (text.value.trim() === '' || amount.value.trim() === '') return;
+
+  const transaction = {
+    id: Date.now(),
+    text: text.value,
+    amount: +amount.value,
+    type: type.value
+  };
+
+  transactions.push(transaction);
+  updateLocalStorage();
+  init();
+
+  text.value = '';
+  amount.value = '';
+}
+
+function addTransactionDOM(transaction) {
+  const sign = transaction.type === 'expense' ? '-' : '+';
+  const item = document.createElement('li');
+  item.classList.add(transaction.type);
+
+  item.innerHTML = `
+    ${transaction.text}
+    <span>${sign}$${transaction.amount}</span>
+    <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
+  `;
+
+  list.appendChild(item);
+}
+
+function updateValues() {
+  const amounts = transactions.map(t =>
+    t.type === 'expense' ? -t.amount : t.amount
+  );
+
+  const total = amounts.reduce((a, b) => a + b, 0).toFixed(2);
+  const incomeTotal = transactions
+    .filter(t => t.type === 'income')
+    .reduce((a, b) => a + b.amount, 0)
+    .toFixed(2);
+  const expenseTotal = transactions
+    .filter(t => t.type === 'expense')
+    .reduce((a, b) => a + b.amount, 0)
+    .toFixed(2);
+
+  balance.innerText = `$${total}`;
+  income.innerText = `$${incomeTotal}`;
+  expense.innerText = `$${expenseTotal}`;
+}
+
+function removeTransaction(id) {
+  transactions = transactions.filter(t => t.id !== id);
+  updateLocalStorage();
+  init();
+}
+
+function updateLocalStorage() {
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+
+function init() {
+  list.innerHTML = '';
+  transactions.forEach(addTransactionDOM);
+  updateValues();
+}
+
+init();
+form.addEventListener('submit', addTransaction);
+</script>
 
 </body>
 </html>
